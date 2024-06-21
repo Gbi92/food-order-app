@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
 import { fetchMeals } from "./http";
+import MealItem from "./components/MealItem";
 
 function App() {
   const [isFetching, setIsFetching] = useState(false);
@@ -29,7 +30,7 @@ function App() {
       <Header />
       <div id="meals">
         {mealsData.map((meal) => (
-          <p key={meal.id}>{meal.name}</p>
+          <MealItem meal={meal} key={meal.id} />
         ))}
       </div>
     </>
