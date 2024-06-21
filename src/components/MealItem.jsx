@@ -1,16 +1,21 @@
-export default function MealItem({ meal }) {
-  const formattedPrice = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(meal.price);
+import { currencyFormatter } from "../util/formatting";
 
+export default function MealItem({ meal }) {
   return (
-    <div className="meal-item">
-      <img src={`http://localhost:3000/${meal.image}`} alt={meal.name} />
-      <h3>{meal.name}</h3>
-      <div className="meal-item-price">{formattedPrice}</div>
-      <div className="meal-item-description">{meal.description}</div>
-      <button className="button meal-item-actions">Add to Cart</button>
-    </div>
+    <li className="meal-item">
+      <article>
+        <img src={`http://localhost:3000/${meal.image}`} alt={meal.name} />
+        <div>
+          <h3>{meal.name}</h3>
+          <p className="meal-item-price">
+            {currencyFormatter.format(meal.price)}
+          </p>
+          <p className="meal-item-description">{meal.description}</p>
+        </div>
+        <p className="meal-item-actions">
+          <button className="button">Add to Cart</button>
+        </p>
+      </article>
+    </li>
   );
 }

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
-import { fetchMeals } from "./http";
 import MealItem from "./components/MealItem";
+import { fetchMeals } from "./http";
 
 function App() {
   const [isFetching, setIsFetching] = useState(false);
@@ -28,11 +28,11 @@ function App() {
   return (
     <>
       <Header />
-      <div id="meals">
+      <ul id="meals">
         {mealsData.map((meal) => (
-          <MealItem meal={meal} key={meal.id} />
+          <MealItem key={meal.id} meal={meal} />
         ))}
-      </div>
+      </ul>
     </>
   );
 }
