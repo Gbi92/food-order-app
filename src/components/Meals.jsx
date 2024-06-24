@@ -1,28 +1,18 @@
-import { useState, useEffect } from "react";
-
 import MealItem from "./MealItem";
-import { fetchMeals } from "../http";
+import useHttp from "../hooks/useHttp";
+
+const requestConfig = {}; // to avoid infinite loop! -- this way the object is not recreated
 
 export default function Meals() {
-  const [isFetching, setIsFetching] = useState(false);
-  const [error, setError] = useState(null);
-  const [mealsData, setMealsData] = useState([]);
+  const {
+    data: mealsData,
+    isLoading,
+    error,
+  } = useHttp("http://localhost:3000/meals", requestConfig, []);
 
-  useEffect(() => {
-    async function fetchData() {
-      setIsFetching(true);
-      try {
-        const data = await fetchMeals();
-        setMealsData(data);
-      } catch (error) {
-        setError({ message: error.message || "Failed to fetch meals" });
-      }
-
-      setIsFetching(false);
-    }
-
-    fetchData();
-  }, []);
+  if (isLoading) {
+    return <p>Fetching meals...</p>;
+  }
 
   return (
     <ul id="meals">
